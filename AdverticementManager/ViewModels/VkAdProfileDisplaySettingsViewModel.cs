@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using AdvertisementProfiles.VK;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
@@ -11,42 +12,63 @@ namespace AdverticementManager.ViewModels
 {
     public class VkAdProfileDisplaySettingsViewModel
     {
-        public int Year { get; set; }
+        public VkAdProfileDisplaySettingsViewModel() : this(ProfileType.General)
+        {}
 
-        public string Month { get; set; }
+        public VkAdProfileDisplaySettingsViewModel(ProfileType type)
+        {
+            ProfileType = type;
+        }
 
-        public int Day { get; set; }
+        public ProfileType ProfileType { get; set; }
+
+        public long AccountId { get; set; }
+
+        [DisplayName("Только активные")]
+        public bool OnlyActive { get; set; }
 
         [DisplayName("Таблица")]
         public DataTableName TableName { get; set; }
 
-        public List<string> AvailableTables { get; } = new List<string> {"Клиенты", "Компании", "Кабинет", "Акции"};
+        public List<string> GeneralTables { get; } = new List<string> {"Компании", "Кабинет", "Объявления"};
+
+        public List<string> AgencyTables { get; } = new List<string> {"Клиенты"};
 
         [DisplayName("Данные за")]
         public PeriodItem Period { get; set; }
 
         public List<string> Periods { get; set; } = new List<string>
         {
-            "Последний день", "Последнюю неделю", "Последний месяц", "Последний год", "Все время"
+            "Последний день", "Последнюю неделю", "Последний месяц", "Все время"
         };
 
-        public IEnumerable<SelectListItem> TableNamesList => AvailableTables.Select(t => new SelectListItem(t, MatchWithEnum(t).ToString()));
+        public IEnumerable<SelectListItem> TableNamesList => ConfigureAvaliableTables();
+
         public IEnumerable<SelectListItem> PeriodsList => Periods.Select(t => new SelectListItem(t, ConvertPeriodToEnum(t).ToString()));
+
+        private IEnumerable<SelectListItem> ConfigureAvaliableTables()
+        {
+            var items = GeneralTables.Select(t => new SelectListItem(t, MatchWithEnum(t).ToString()));
+            if (ProfileType == ProfileType.Agency)
+            {
+                items = items.Concat(AgencyTables.Select(t => new SelectListItem(t, MatchWithEnum(t).ToString())));
+            }
+
+            return items;
+        }
 
         private PeriodItem ConvertPeriodToEnum(string period)
         {
             switch (period)
             {
                 case "Последний день":
-                    return PeriodItem.LastDay;
+                    return PeriodItem.Day;
                 case "Последнюю неделю":
                     return PeriodItem.LastWeek;
                 case "Последний месяц":
-                    return PeriodItem.LastMonth;
-                case "Последний год":
-                    return PeriodItem.LastYear;
+                    return PeriodItem.Month;
                 default:
-                    return PeriodItem.AllTime;
+                    return PeriodItem.Overall;
             }
         }
 
@@ -55,31 +77,14 @@ namespace AdverticementManager.ViewModels
             switch (s)
             {
                 case "Клиенты":
-                    return DataTableName.Clients;
+                    return DataTableName.Client;
                 case "Компании":
-                    return DataTableName.Companies;
-                case "Акции":
-                    return DataTableName.Ads;
+                    return DataTableName.Campaign;
+                case "Объявления":
+                    return DataTableName.Ad;
                 default:
                     return DataTableName.Office;
             }
         }
-    }
-
-    public enum DataTableName
-    {
-        Office,
-        Clients,
-        Companies,
-        Ads
-    }
-
-    public enum PeriodItem
-    {
-        LastDay,
-        LastWeek,
-        LastMonth,
-        LastYear,
-        AllTime
     }
 }

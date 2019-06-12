@@ -1,6 +1,7 @@
 ﻿using AdverticementManager.ViewModels;
 using AdvertisementProfiles.VK.ResponseModels;
 using AutoMapper;
+using StatisticsItem = AdverticementManager.ViewModels.StatisticsItem;
 
 namespace AdverticementManager
 {

@@ -9,5 +9,17 @@ namespace AdvertisementProfiles
         {
             return string.Join("&", parameters.Keys.Select(k => $"{k}={parameters[k].ToString()}"));
         }
+
+        public static string FormatNumber(this int number, int signNumber)
+        {
+            var stringNumber = number.ToString();
+            if (stringNumber.Length >= signNumber)
+            {
+                return stringNumber;
+            }
+
+            return string.Join("", Enumerable.Range(0, signNumber - stringNumber.Length).Select(_ => "0")) +
+                   stringNumber;
+        }
     }
 }

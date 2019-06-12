@@ -8,7 +8,7 @@ namespace AdverticementManager.ViewModels
 
         public class AdProfile
         {
-            public string AccountId { get; set; }
+            public long AccountId { get; set; }
 
             public string AccountType { get; set; }
 

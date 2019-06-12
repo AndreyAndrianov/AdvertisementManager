@@ -1,0 +1,19 @@
+﻿@model AdverticementManager.ViewModels.VkStatisticsViewModel
+<table class="table">
+    <tr class="d-table-row">
+        <th>Название</th>
+        <th>Денег потрачено</th>
+        <th>Клики</th>
+        <th>Реакции</th>
+    </tr>
+    @foreach (var item in Model.Statistics)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Spent</td>
+            <td>@item.Clicks</td>
+            <td>@item.Impressions</td>
+        </tr>
+    }
+</table>
+

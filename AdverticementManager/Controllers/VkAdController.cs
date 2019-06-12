@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AdverticementManager.ViewModels;
 using AdvertisementProfiles.VK;
 using AutoMapper;
@@ -46,18 +47,22 @@ namespace AdverticementManager.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> ProfileInfo(long profileId)
+        public async Task<IActionResult> ProfileInfo(long profileId, string profileType)
         {
             // TODO обработать ситуацию, когда нет токена
             var token = Request.HttpContext.Session.GetString("vkAccessToken");
             var statistics = await _vkHelper.GetAdProfileStatistics(token, profileId);
-            return View();
+            var type = Enum.Parse<ProfileType>(profileType, true);
+            return View(new VkProfileViewModel{AccountId = profileId, ProfileType = type});
         }
 
         [HttpPost]
         public async Task<IActionResult> GetData(VkAdProfileDisplaySettingsViewModel settings)
         {
-        
+            var token = Request.HttpContext.Session.GetString("vkAccessToken");
+            var res = await _vkHelper.GetStatistics(settings.TableName, settings.Period, settings.AccountId, token, settings.OnlyActive);
+            var statViewModel = new VkStatisticsViewModel(res);
+            return PartialView("_StatisticsTable", statViewModel);
         }
     }
 }

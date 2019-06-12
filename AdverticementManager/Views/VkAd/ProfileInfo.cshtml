@@ -6,9 +6,7 @@
             <div id="table"></div>
         </div>
         <div class="col-sm">
-            @Html.Partial("_AdProfileDisplaySettings", new VkAdProfileDisplaySettingsViewModel())
+            @Html.Partial("_AdProfileDisplaySettings", new VkAdProfileDisplaySettingsViewModel(Model.ProfileType){AccountId = Model.AccountId})
         </div>
     </div>
-</div>
-
 </div>

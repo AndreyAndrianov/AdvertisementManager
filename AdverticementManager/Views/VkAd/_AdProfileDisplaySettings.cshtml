@@ -15,7 +15,12 @@
                 <option selected="selected" value="">Please select</option>
             </select>
         </div>
-        <input type="submit" class="btn btn-primary" style="margin-left: 10px" value="Отправить" />
+        <div class="form-group" align="center">
+            <label asp-for="OnlyActive"></label>
+            <input asp-for="OnlyActive"/>
+        </div>
+        <input asp-for="AccountId" type="hidden" value="@Model.AccountId" class="custom-checkbox" />
+        <input type="submit" class="btn btn-primary" value="Отправить" />
     </form>
 
 </div>

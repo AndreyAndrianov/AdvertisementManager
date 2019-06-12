@@ -94,6 +94,7 @@ namespace AdverticementManager
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddTransient<IVkHelper, VkHelper>();
+            services.AddTransient<IVkApiRequestHelper, VkApiRequestHelper>();
         }
     }
 }

@@ -7,7 +7,7 @@
 
 <div class="col-md-1"></div>
 <div class="col-md-6 adProfileInfo" >
-    <a asp-action="ProfileInfo" asp-route-profileId="@Model.AccountId">@Model.AccountId</a>
+    <a asp-action="ProfileInfo" asp-route-profileId="@Model.AccountId" asp-route-profileType="@Model.AccountType">@Model.AccountId</a>
     <br/> 
     Роль: @Model.AccessRole 
     <br/>Статус: @status 
