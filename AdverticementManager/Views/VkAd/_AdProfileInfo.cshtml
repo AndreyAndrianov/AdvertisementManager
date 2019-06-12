@@ -1,0 +1,15 @@
+﻿@model AdverticementManager.ViewModels.VkAdProfilesViewModel.AdProfile
+
+@{
+    var status = Model.AccountStatus == 1 ? "Активен" : "Неактивен";
+    var type = Model.AccountType.Equals("general", StringComparison.InvariantCultureIgnoreCase) ? "Обычный" : "Агентский";
+}
+
+<div class="col-md-1"></div>
+<div class="col-md-6 adProfileInfo" >
+    <a asp-action="ProfileInfo" asp-route-profileId="@Model.AccountId">@Model.AccountId</a>
+    <br/> 
+    Роль: @Model.AccessRole 
+    <br/>Статус: @status 
+    <br/>Тип: @type
+</div>

@@ -1,0 +1,25 @@
+﻿.adProfileInfo {
+    background-color: #E0FFFF;
+    border-radius: 10px;
+    margin: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    opacity: 0.8;
+}
+
+.settings {
+    background-color: #E0FFFF;
+    border-radius: 10px;
+    margin: 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    /*padding-top: 20px;
+    padding-bottom: 20px;*/
+    position: fixed;
+    right: 10px;
+    top: 20%;
+}
+
+.settingElement {
+    margin: 50px;
+}

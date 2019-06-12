@@ -1,0 +1,24 @@
+﻿@using System.Collections
+@using DAL.Models
+@model AdverticementManager.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    
+    @Model.CurrentUser.FirstName
+
+    @if(@Model.CurrentUserRoles.Contains("ADMIN"))
+    {
+        <p>Admin</p>
+
+    }
+    else
+    {
+        <p>User</p>
+    }
+
+</div>

@@ -1,0 +1,9 @@
+﻿@model AdverticementManager.ViewModels.VkAdProfilesViewModel
+<h2>Список доступных рекламных кабинетов</h2>
+<br/>
+@foreach (var modelAdProfile in Model.AdProfiles)
+{
+    @*<h3>@modelAdProfile.AccountId - @modelAdProfile.AccessRole</h3>*@
+
+    @Html.Partial("_AdProfileInfo", modelAdProfile)
+}
