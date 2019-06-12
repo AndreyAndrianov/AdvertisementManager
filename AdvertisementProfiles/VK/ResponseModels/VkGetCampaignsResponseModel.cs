@@ -6,7 +6,7 @@ namespace AdvertisementProfiles.VK.ResponseModels
 {
     public class VkGetCampaignsResponseModel
     {
-        public List<CampaignItem> response { get; set; }
+        public List<BaseTableItem> response { get; set; }
 
         public class CampaignItem : BaseTableItem
         {

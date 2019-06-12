@@ -72,6 +72,7 @@ namespace AdvertisementProfiles.VK
             string accessToken,
             bool onlyActive)
         {
+            VkGetStatisticsResponseModel statistics;
             switch (table)
             {
                 case DataTableName.Client:
@@ -79,12 +80,23 @@ namespace AdvertisementProfiles.VK
                     break;
                 case DataTableName.Ad:
                     var ads = await GetAllAds(accountId, accessToken, onlyActive);
-                    var statistics = await GetStatics(table, period, accountId, accessToken, ads.response);
+                    statistics = await GetStatics(table, period, accountId, accessToken, ads.response);
                     statistics.response.ForEach(s => s.name = ads.response.FirstOrDefault(a => a.id == s.id)?.name);
                     return statistics;
                 case DataTableName.Campaign:
                     var comps = await GetAllCampaigns(accountId, accessToken, onlyActive);
-                    break;
+                    statistics = await GetStatics(table, period, accountId, accessToken, comps.response);
+                    statistics.response.ForEach(s => s.name = comps.response.FirstOrDefault(a => a.id == s.id)?.name);
+                    return statistics;
+                default:
+                    statistics = await GetStatics(
+                        DataTableName.Office,
+                        period,
+                        accountId,
+                        accessToken,
+                        new List<BaseTableItem> {new BaseTableItem {id = accountId.ToString()}});
+                    statistics.response[0].name = "Рекламный кабинет";
+                    return statistics;
             }
 
             return null;
