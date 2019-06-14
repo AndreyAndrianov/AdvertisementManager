@@ -64,5 +64,10 @@ namespace AdverticementManager.Controllers
             var statViewModel = new VkStatisticsViewModel(res);
             return PartialView("_StatisticsTable", statViewModel);
         }
+
+        public IActionResult GetHelp()
+        {
+            return View();
+        }
     }
 }

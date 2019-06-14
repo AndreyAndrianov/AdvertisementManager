@@ -3,8 +3,11 @@
 @{
     ViewData["Title"] = "MarketerIndex";
 }
-
-<a href="https://oauth.vk.com/authorize?client_id=7012170&display=page&redirect_uri=https://localhost:44326/VkAd&scope=98304&response_type=code&v=5.95">Зайти через вк</a>
-
-<h1>MarketerIndex</h1>
+@{
+    if (Model.UserRoles.Contains("ADMIN", StringComparer.InvariantCultureIgnoreCase))
+    {
+        <a asp-controller="Users" asp-action="Index">Список пользователей</a>
+    }
+}
+<br/><a href="https://oauth.vk.com/authorize?client_id=7012170&display=page&redirect_uri=https://localhost:44326/VkAd&scope=98304&response_type=code&v=5.95">Рекламные кабинеты ВКонтакте</a>
 

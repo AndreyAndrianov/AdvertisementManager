@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AdverticementManager.Utils;
 using AdvertisementProfiles.VK.ResponseModels;
@@ -35,12 +34,10 @@ namespace AdvertisementProfiles.VK
 
         public async Task<VkAdProfilesResponseModel> GetAdProfiles(string accessToken)
         {
-            // TODO Обработать протухший токен
             var adsUrl = $"https://api.vk.com/method/ads.getAccounts?access_token={accessToken}&v=5.95";
             var res = await _httpClient.GetAsync(adsUrl);
             var content = await res.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<VkAdProfilesResponseModel>(content);
-            //return JsonConvert.DeserializeObject<VkAdProfilesResponseModel>(content);
         }
 
         public async Task<VkAdProfileResponseModel> GetAdProfileStatistics(string accessToken, long profileId)
@@ -102,7 +99,12 @@ namespace AdvertisementProfiles.VK
             return null;
         }
 
-        private async Task<VkGetStatisticsResponseModel> GetStatics(DataTableName table, PeriodItem period, long accountId, string accessToken, List<BaseTableItem> items)
+        private async Task<VkGetStatisticsResponseModel> GetStatics(
+            DataTableName table, 
+            PeriodItem period, 
+            long accountId, 
+            string accessToken, 
+            List<BaseTableItem> items)
         {
             var parameters = new Dictionary<string, string>
             {

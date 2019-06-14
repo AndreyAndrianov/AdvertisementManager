@@ -52,5 +52,6 @@ namespace AdverticementManager.ViewModels
         public int? VideoViewsFull { get; set; }
         public int? VideoClicksSite { get; set; }
         public int? JoinRate { get; set; }
+        public double Ctr { get; set; }
     }
 }

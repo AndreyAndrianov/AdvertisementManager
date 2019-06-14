@@ -40,7 +40,8 @@ namespace AdverticementManager.Controllers
 
             var vm = new MarketerIndexViewModel
             {
-                VkAuthUrl = _configuration.GetValue<string>("VKOauthTokenUri")
+                VkAuthUrl = _configuration.GetValue<string>("VKOauthTokenUri"),
+                UserRoles = roles,
             };
 
             if (roles.Contains("User", StringComparer.InvariantCultureIgnoreCase))

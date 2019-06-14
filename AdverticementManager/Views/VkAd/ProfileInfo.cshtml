@@ -1,12 +1,16 @@
 ﻿@using AdverticementManager.ViewModels
 @model AdverticementManager.ViewModels.VkProfileViewModel
+@{
+    ViewBag.Title = "Статистика";
+}
+<h3>Статистика</h3>
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
             <div id="table"></div>
         </div>
         <div class="col-sm">
-            @Html.Partial("_AdProfileDisplaySettings", new VkAdProfileDisplaySettingsViewModel(Model.ProfileType){AccountId = Model.AccountId})
+            @Html.Partial("_AdProfileDisplaySettings", new VkAdProfileDisplaySettingsViewModel(Model.ProfileType) { AccountId = Model.AccountId })
         </div>
     </div>
 </div>

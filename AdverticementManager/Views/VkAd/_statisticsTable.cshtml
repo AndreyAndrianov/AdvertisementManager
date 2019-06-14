@@ -5,15 +5,28 @@
         <th>Денег потрачено</th>
         <th>Клики</th>
         <th>Реакции</th>
+        <th>CTR, %</th>
     </tr>
     @foreach (var item in Model.Statistics)
     {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Spent</td>
-            <td>@item.Clicks</td>
-            <td>@item.Impressions</td>
-        </tr>
+
+        var ctr = item.Impressions != 0 ? (double?)item?.Clicks / item.Impressions * 100 : 0;
+
+<tr>
+    <td>@item.Name</td>
+    <td>@item.Spent</td>
+    <td>@item.Clicks</td>
+    <td>@item.Impressions</td>
+    @if (ctr > 0.1)
+    {
+        <td>@ctr</td>
+    }
+    else
+    {
+        <td><a style="color: red" asp-action="GetHelp">@ctr</a></td>
+    }
+
+</tr>
     }
 </table>
 
